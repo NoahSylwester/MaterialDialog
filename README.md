@@ -2,6 +2,8 @@
 
 Here is my completed exercise, done in Angular 9 and with Material Components.
 
+The dialog incorporates everything that the `mock.ts` file contains, which is more than the images provided show, but were the extra fields deleted it would look the same.
+
 I ended up doing some work to make the interface select everything properly. Some of that work is probably past what I needed to do, but I've made an effort to make it easy to parse through.
 
 I also separated a few components into their own files, just to make it convenient for me to regenerate additional instances of them.
