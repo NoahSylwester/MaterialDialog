@@ -1,0 +1,75 @@
+$base-color: rgb(75, 75, 75);
+$theme-color: #3f51b5;
+
+* {
+    color: $base-color;
+}
+#dialog-title {
+    border-bottom: 1px solid $base-color;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.dialog-section-title {
+    letter-spacing: 3px;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.dialog-section-title::after {
+    content: '';
+    width: 70px;
+    height: 5px;
+    border-bottom: 1px solid $theme-color;
+}
+.app-dialog-row {
+    width: 100%;
+    height: 70px;
+    display: inline-grid;
+    grid-template-columns: 12% auto 12%;
+}
+.app-dialog-radio-row {
+    width: 100%;
+    height: 100px;
+    display: inline-grid;
+    grid-template-columns: 12% auto 12%;
+}
+.app-radio-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    mat-radio-button {
+        margin: 5px;
+    }
+}
+.app-icon {
+    place-self: center;
+}
+.app-input-field {
+    width: 100%;
+    place-self: center;
+}
+.app-add-button {
+    place-self: center;
+    mat-icon {
+        color: $theme-color;
+    }
+}
+.hide-button {
+    font-size: 1.3rem !important;
+}
+.app-dialog-actions {
+    padding: 10px;
+    position: relative;
+}
+.app-dialog-actions::before {
+    content: '';
+    width: 50%;
+    height: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 1px solid rgb(221, 221, 221);
+}

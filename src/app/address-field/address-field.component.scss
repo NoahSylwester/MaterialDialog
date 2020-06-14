@@ -1,0 +1,30 @@
+$base-color: rgb(75, 75, 75);
+$theme-color: #3f51b5;
+
+.app-dialog-address-row {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 12% auto 12%;
+    .inner-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 20px;
+    }
+    .app-icon {
+        justify-content: start;
+        align-content: start;
+    }
+}
+.app-icon {
+    place-self: center;
+}
+.app-input-field {
+    width: 100%;
+    place-self: center;
+}
+.app-add-button {
+    place-self: center;
+    mat-icon {
+        color: $theme-color;
+    }
+}

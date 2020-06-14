@@ -1,0 +1,21 @@
+$theme-color: #3f51b5;
+
+.app-input-field {
+    width: 100%;
+    place-self: center;
+}
+.app-dialog-contact-row {
+    width: 100%;
+    height: 70px;
+    display: inline-grid;
+    grid-template-columns: 12% auto 3% auto 12%;
+}
+.app-icon {
+    place-self: center;
+}
+.app-add-button {
+    place-self: center;
+    mat-icon {
+        color: $theme-color;
+    }
+}

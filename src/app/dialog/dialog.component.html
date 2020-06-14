@@ -1,0 +1,232 @@
+<h2 mat-dialog-title id="dialog-title">{{employeeData.contactName}}</h2>
+
+<mat-dialog-content class="app-dialog-content">
+
+    <!-- Basic info section -->
+    <h3 class="dialog-section-title">BASIC INFO</h3>
+        <!-- contactName -->
+        <div class="app-dialog-row">
+            <mat-icon class="app-icon">person</mat-icon>
+            <mat-form-field class="app-input-field">
+                <mat-label>Full Name</mat-label>
+                <input
+                    matInput
+                    disabled
+                    placeholder="Ex. Jane Doe"
+                    [value]="employeeData.contactName">
+            </mat-form-field>
+        </div>
+
+        <!-- This input is in the wireframe, but there is no matching value
+        in the mock data, so for now it is linked to an outside property -->
+        <div class="app-dialog-row">
+            <div></div>
+            <mat-form-field class="app-input-field">
+                <mat-label>Preferred First Name</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. Janie"
+                    [(ngModel)]="preferredName">
+            </mat-form-field>
+        </div>
+
+        <!-- maskedSocialSecurity -->
+        <div class="app-dialog-row">
+            <mat-icon class="app-icon">credit_card</mat-icon>
+            <mat-form-field class="app-input-field">
+                <mat-label>Social Security Number</mat-label>
+                <input 
+                    matInput
+                    disabled
+                    [type]="hideSSN ? 'password' : 'text'"
+                    placeholder="Ex. 111111111"
+                    [value]="employeeData.maskedSocialSecurity">
+                    <button 
+                        mat-icon-button
+                        matSuffix
+                        class="hide-button"
+                        (click)="hideSSN = !hideSSN"
+                        [attr.aria-label]="'Hide SSN'"
+                        [attr.aria-pressed]="hideSSN">
+                        <mat-icon>{{hideSSN ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+            </mat-form-field>
+        </div>
+
+        <!-- dataOfBirth -->
+        <div class="app-dialog-row">
+            <mat-icon class="app-icon">cake</mat-icon>
+            <mat-form-field class="app-input-field">
+                <mat-label>Birthday</mat-label>
+                <input 
+                    matInput
+                    disabled
+                    placeholder="Ex. January 1, 2000"
+                    [value]="employeeData.dateOfBirth | date: 'fullDate'">
+            </mat-form-field>
+        </div>
+
+        <!-- employmentStatus -->
+        <div class="app-dialog-row">
+            <mat-icon class="app-icon">work</mat-icon>
+            <mat-form-field class="app-input-field">
+                <mat-label>Employment Status</mat-label>
+                <input 
+                    matInput
+                    disabled
+                    placeholder="Ex. Part-Time"
+                    [value]="employeeData.employmentStatus">
+            </mat-form-field>
+        </div>
+
+        <!-- hireDate -->
+        <div class="app-dialog-row">
+            <mat-icon class="app-icon">date_range</mat-icon>
+            <mat-form-field class="app-input-field">
+                <mat-label>Hire Date</mat-label>
+                <input 
+                    matInput
+                    disabled
+                    placeholder="Ex. January 1, 2000"
+                    [value]="employeeData.hireDate | date: 'fullDate'">
+            </mat-form-field>
+        </div>
+
+    <!-- Addresses section -->
+    <h3 class="dialog-section-title">ADDRESSES</h3>
+
+        <!-- loop to generate all existing addresses -->
+        <ng-container *ngFor="let address of addresses; let i = index">
+            <app-address-field
+                *ngIf="address.value.addressLine1 !== null || isDisplayBothAddresses"
+                [(addressType)]="address.type"
+                [(addressData)]="address.value"
+                (newAddressType)="updateAddressType($event,i)"
+                (addAddress)="isDisplayBothAddresses = $event"></app-address-field>
+        </ng-container>
+
+    <!-- Contact info section -->
+    <h3 class="dialog-section-title">CONTACT INFO</h3>
+
+        <!-- loop to generate all existing emails -->
+        <ng-container *ngFor="let email of emails; let i = index">
+            <app-email-field
+                *ngIf="email.value !== null || isDisplayBothEmails"
+                [(emailType)]="email.type"
+                [(email)]="email.value"
+                (newEmailType)="updateEmailType($event,i)"
+                (addEmail)="isDisplayBothEmails = $event"
+                (updateEmail)="updateEmail($event,i)"></app-email-field>
+        </ng-container>
+
+        <!-- loop to generate all existing phone numbers -->
+        <ng-container *ngFor="let phoneNumber of phoneNumbers; let i = index">
+            <app-phone-number-field
+                *ngIf="phoneNumber.value !== null || isDisplayBothPhoneNumbers"
+                [(phoneNumberType)]="phoneNumber.type"
+                [(phoneNumber)]="phoneNumber.value"
+                (newPhoneNumberType)="updatePhoneNumberType($event,i)"
+                (addPhoneNumber)="isDisplayBothPhoneNumbers = $event"
+                (updatePhoneNumber)="updatePhoneNumber($event,i)"></app-phone-number-field>
+        </ng-container>
+    
+    <!-- Legal info section -->
+    <h3 class="dialog-section-title">LEGAL INFO</h3>
+
+        <!-- genderDescription -->
+        <div class="app-dialog-radio-row">
+            <mat-icon class="app-icon">wc</mat-icon>
+            <mat-radio-group
+                class="app-input-field"
+                aria-labelledby="genderDescriptionLabel"
+                class="app-radio-group"
+                [(ngModel)]="employeeData.genderDescription">
+                <label id="genderDescriptionLabel">Legal Gender</label>
+                <mat-radio-button class="app-radio-button" value="Male">
+                    Male
+                </mat-radio-button>
+                <mat-radio-button class="app-radio-button" value="Female">
+                    Female
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <!-- medicareEligible -->
+        <div class="app-dialog-radio-row">
+            <mat-icon class="app-icon">medical_services</mat-icon>
+            <mat-radio-group
+                class="app-input-field"
+                aria-labelledby="medicareEligibleLabel"
+                class="app-radio-group"
+                [(ngModel)]="employeeData.medicareEligible">
+                <label id="medicareEligibleLabel">Medicare Eligibility</label>
+                <mat-radio-button class="app-radio-button" value="true">
+                    Yes, I am eligible for Medicare
+                </mat-radio-button>
+                <mat-radio-button class="app-radio-button" value="false">
+                    No, I am not eligible for Medicare
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <!-- smoker -->
+        <div class="app-dialog-radio-row">
+            <mat-icon class="app-icon">smoking_rooms</mat-icon>
+            <mat-radio-group
+                class="app-input-field"
+                aria-labelledby="smokerLabel"
+                class="app-radio-group"
+                [(ngModel)]="employeeData.smoker">
+                <label id="smokerLabel">Smoking Status</label>
+                <mat-radio-button class="app-radio-button" value="true">
+                    Yes, I smoke regularly
+                </mat-radio-button>
+                <mat-radio-button class="app-radio-button" value="false">
+                    No, I do not smoke
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <!-- disabled -->
+        <div class="app-dialog-radio-row">
+            <mat-icon class="app-icon">accessible</mat-icon>
+            <mat-radio-group
+                class="app-input-field"
+                aria-labelledby="disabledLabel"
+                class="app-radio-group"
+                [(ngModel)]="employeeData.disabled">
+                <label id="disabledLabel">Disability Status</label>
+                <mat-radio-button class="app-radio-button" value="true">
+                    Yes, I have a disability
+                </mat-radio-button>
+                <mat-radio-button class="app-radio-button" value="false">
+                    No, I do not have a disability
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <!-- student -->
+        <div class="app-dialog-radio-row">
+            <mat-icon class="app-icon">menu_book</mat-icon>
+            <mat-radio-group
+                class="app-input-field"
+                aria-labelledby="studentLabel"
+                class="app-radio-group"
+                [(ngModel)]="employeeData.student">
+                <label id="studentLabel">Student Status</label>
+                <mat-radio-button class="app-radio-button" value="true">
+                    Yes, I am a student
+                </mat-radio-button>
+                <mat-radio-button class="app-radio-button" value="false">
+                    No, I am not a student
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+ 
+</mat-dialog-content>
+
+<!-- footer/action buttons -->
+<mat-dialog-actions align="end" class="app-dialog-actions">
+    <button mat-button color="primary" mat-dialog-close>Cancel</button>
+    <button mat-button (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,27 @@
+<div class="app-dialog-contact-row">
+    <mat-icon class="app-icon">phone</mat-icon>
+    <mat-form-field class="app-input-field">
+        <mat-label>Phone Number</mat-label>
+        <input
+            matInput
+            placeholder="Ex. 111-111-1111"
+            [(ngModel)]="phoneNumber"
+            (change)="phoneNumberChange()">
+    </mat-form-field>
+    <div></div>
+    <mat-form-field class="app-input-field">
+        <mat-select [(ngModel)]="phoneNumberType" (blur)="typeChange()">
+            <mat-option
+                *ngFor="let phoneNumberOption of phoneNumberOptions"
+                [value]="phoneNumberOption">
+                {{phoneNumberOption}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button
+        class="app-add-button"
+        mat-icon-button
+        (click)="displayBothPhoneNumbers()">
+        <mat-icon>add_circle_outline</mat-icon>
+    </button>
+</div>

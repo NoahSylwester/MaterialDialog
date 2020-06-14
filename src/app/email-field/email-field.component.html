@@ -1,0 +1,27 @@
+<div class="app-dialog-contact-row">
+    <mat-icon class="app-icon">email</mat-icon>
+    <mat-form-field class="app-input-field">
+        <mat-label>Email Address</mat-label>
+        <input
+            matInput
+            placeholder="Ex. myEmail@email.com"
+            [(ngModel)]="email"
+            (change)="emailChange()">
+    </mat-form-field>
+    <div></div>
+    <mat-form-field class="app-input-field">
+        <mat-select [(ngModel)]="emailType" (blur)="typeChange()">
+            <mat-option
+                *ngFor="let emailOption of emailOptions"
+                [value]="emailOption">
+                {{emailOption}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button
+        class="app-add-button"
+        mat-icon-button
+        (click)="displayBothEmails()">
+        <mat-icon>add_circle_outline</mat-icon>
+    </button>
+</div>
